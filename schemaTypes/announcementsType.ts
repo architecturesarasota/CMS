@@ -10,6 +10,7 @@ export const announcementsType = defineType({
             title: 'Announcement Title',
             type: 'string',
             validation: (rule) => rule.required(),
+
         }),
         defineField({
             name: 'shortDescription',
