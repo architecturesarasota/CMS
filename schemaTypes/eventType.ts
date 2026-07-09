@@ -12,6 +12,37 @@ export const eventType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
+            name: 'speakers',
+            title: 'Speakers & Lecturers',
+            type: 'array',
+            description: 'Add the name and title of the lecturer(s). You can add multiple if needed.',
+            of: [
+                {
+                    type: 'object',
+                    fields: [
+                        defineField({
+                            name: 'name',
+                            title: 'Name',
+                            type: 'string',
+                            validation: (Rule) => Rule.required(),
+                        }),
+                        defineField({
+                            name: 'jobTitle', // Using jobTitle to avoid conflict with the default 'title' property in Sanity UI
+                            title: 'Title',
+                            type: 'string',
+                            description: 'e.g., Guest Lecturer, Lead Architect',
+                        }),
+                    ],
+                    preview: {
+                        select: {
+                            title: 'name',
+                            subtitle: 'jobTitle',
+                        },
+                    },
+                },
+            ],
+        }),
+        defineField({
             name: 'focusAreas',
             title: 'Focus Areas',
             type: 'array',
@@ -47,6 +78,7 @@ export const eventType = defineType({
             type: 'string',
             description: 'e.g., Main Gallery',
         }),
+
         defineField({
             name: 'image',
             title: 'Image',
