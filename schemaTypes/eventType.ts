@@ -12,6 +12,23 @@ export const eventType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
+            name: 'focusAreas',
+            title: 'Focus Areas',
+            type: 'array',
+            of: [{ type: 'string' }],
+            description: 'Select one or more focus areas this event falls under.',
+            options: {
+                list: [
+                    { title: 'Sustainable Urbanism', value: 'Sustainable Urbanism' },
+                    { title: 'Sarasota School Legacy', value: 'Sarasota School Legacy' },
+                    { title: 'Modern Dwelling', value: 'Modern Dwelling' },
+                    { title: 'Environmental Adaptation', value: 'Environmental Adaptation' }
+                ],
+                layout: 'grid',
+            },
+            validation: (Rule) => Rule.required().min(1).error('You must select at least one focus area.'),
+        }),
+        defineField({
             name: 'date',
             title: 'Date',
             type: 'string',
@@ -20,9 +37,15 @@ export const eventType = defineType({
         }),
         defineField({
             name: 'time',
-            title: 'Time & Location',
+            title: 'Time',
             type: 'string',
-            description: 'Format as "Time, Location" (e.g., "7:00 PM, Main Gallery") so the frontend can split it.',
+            description: 'e.g., 7:00 PM',
+        }),
+        defineField({
+            name: 'location',
+            title: 'Location',
+            type: 'string',
+            description: 'e.g., Main Gallery',
         }),
         defineField({
             name: 'image',
