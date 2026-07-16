@@ -6,6 +6,12 @@ export const eventType = defineType({
     type: 'document',
     fields: [
         defineField({
+            name: 'seriesName',
+            title: 'Series Name',
+            type: 'string',
+            description: 'The series this event belongs to',
+        }),
+        defineField({
             name: 'title',
             title: 'Title',
             type: 'string',
@@ -13,9 +19,9 @@ export const eventType = defineType({
         }),
         defineField({
             name: 'speakers',
-            title: 'Speakers & Lecturers',
+            title: 'Name and Occupation',
             type: 'array',
-            description: 'Add the name and title of the lecturer(s). You can add multiple if needed.',
+            description: 'Add the name and occupation of the speaker(s)/lecturer(s). You can add multiple if needed.',
             of: [
                 {
                     type: 'object',
@@ -27,24 +33,49 @@ export const eventType = defineType({
                             validation: (Rule) => Rule.required(),
                         }),
                         defineField({
-                            name: 'jobTitle', // Using jobTitle to avoid conflict with the default 'title' property in Sanity UI
-                            title: 'Title',
+                            name: 'occupation',
+                            title: 'Occupation',
                             type: 'string',
-                            description: 'e.g., Guest Lecturer, Lead Architect',
+                            description: 'e.g., Architect, Historian',
                         }),
                     ],
                     preview: {
                         select: {
                             title: 'name',
-                            subtitle: 'jobTitle',
+                            subtitle: 'occupation',
                         },
                     },
                 },
             ],
         }),
         defineField({
+            name: 'date',
+            title: 'Date',
+            type: 'string',
+            description: 'Format strictly as mm.dd.yy (e.g., 12.25.24) to match the frontend parser.',
+            validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+            name: 'time',
+            title: 'Time',
+            type: 'string',
+            description: 'e.g., 7 PM or 7:30 PM',
+        }),
+        defineField({
+            name: 'location',
+            title: 'Location',
+            type: 'string',
+            description: 'e.g., The Pavilion',
+        }),
+        defineField({
+            name: 'eventCategory',
+            title: 'Event Type',
+            type: 'string',
+            description: 'Free response (e.g., tour, speaker, celebration)',
+        }),
+        defineField({
             name: 'focusAreas',
-            title: 'Focus Areas',
+            title: 'Focus Area',
             type: 'array',
             of: [{ type: 'string' }],
             description: 'Select one or more focus areas this event falls under.',
@@ -60,31 +91,11 @@ export const eventType = defineType({
             validation: (Rule) => Rule.required().min(1).error('You must select at least one focus area.'),
         }),
         defineField({
-            name: 'date',
-            title: 'Date',
-            type: 'string',
-            description: 'Format strictly as mm.dd.yy (e.g., 12.25.24) to match the frontend parser.',
-            validation: (Rule) => Rule.required(),
-        }),
-        defineField({
-            name: 'time',
-            title: 'Time',
-            type: 'string',
-            description: 'e.g., 7:00 PM',
-        }),
-        defineField({
-            name: 'location',
-            title: 'Location',
-            type: 'string',
-            description: 'e.g., Main Gallery',
-        }),
-
-        defineField({
             name: 'image',
             title: 'Image',
             type: 'image',
             options: {
-                hotspot: true, // Enables UI for cropping/focal point selection
+                hotspot: true,
             },
         }),
         defineField({
