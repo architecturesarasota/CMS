@@ -104,5 +104,12 @@ export const eventType = defineType({
             type: 'url',
             description: 'If left blank, frontend will display "INFO COMING SOON".',
         }),
+        defineField({
+            name: 'longDescription',
+            title: 'Long Description',
+            type: 'array',
+            of: [{ type: 'block' }],
+            description: 'Fill out the extended information for the event here.',
+        }),
     ],
 })
